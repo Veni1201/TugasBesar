@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Materi - EduSmart</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .content h2, .about-box {
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+    }
+
+    .about-box {
+      background-color: #00f0ff;
+      color: #121212;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00dfd8;
+      margin-top: 30px;
+      text-align: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .about-box h3 {
+      margin-top: 0;
+      color: #121212;
+      font-size: 24px;
+    }
+
+    .about-box p, .about-box ul {
+      font-weight: 500;
+      line-height: 1.6;
+      margin: 15px 0;
+      text-align: left;
+    }
+
+    .about-box ul {
+      padding-left: 20px;
+    }
+
+    .btn-show {
+      display: inline-block;
+      margin-top: 15px;
+      cursor: pointer;
+      color: #007cf0;
+      font-weight: bold;
+    }
+
+    .more-info {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+
+    .more-info.active {
+      max-height: 1000px;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MATERI BELAJAR</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">Tentang</a>
+    <a href="materi.html">Materi</a>
+    <a href="kontak.html">Kontak</a>
+  </nav>
+
+  <div class="content">
+    <h2>Daftar Materi dan Informasi Edukasi</h2>
+
+    <div class="about-box">
+      <h3>📚 Mata Pelajaran</h3>
+      <ul>
+        <li><a href="matematika.html">Matematika</a></li>
+        <li><a href="biologi.html">Biologi</a></li>
+        <li><a href="fisika.html">Fisika</a></li>
+        <li><a href="kimia.html">Kimia</a></li>
+        <li><a href="bahasa-indonesia.html">Bahasa Indonesia</a></li>
+      </ul>
+    </div>
+
+    <div class="about-box">
+      <h3>📝 Tips Belajar Efektif</h3>
+      <ul>
+        <li>📌 Buat jadwal belajar rutin.</li>
+        <li>📌 Gunakan metode belajar visual dan praktik langsung.</li>
+        <li>📌 Review materi sebelum tidur.</li>
+      </ul>
+      <span class="btn-show" onclick="toggleMoreInfo()">Lihat Selengkapnya ▼</span>
+      <div class="more-info" id="moreInfo">
+        <p>Berikut beberapa tips tambahan:</p>
+        <ul>
+          <li>Gunakan teknik Pomodoro: belajar 25 menit, istirahat 5 menit.</li>
+          <li>Ciptakan lingkungan belajar yang nyaman dan minim gangguan.</li>
+          <li>Gunakan mind mapping untuk menghubungkan konsep-konsep penting.</li>
+          <li>Jaga pola tidur dan makan yang sehat untuk fokus maksimal.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about-box">
+      <h3>🎓 Info Beasiswa & Kampus</h3>
+      <ul>
+        <li><a href="https://beasiswa.kemdikbud.go.id/" target="_blank">Beasiswa Kemdikbud</a></li>
+        <li><a href="https://lpdp.kemenkeu.go.id/" target="_blank">Beasiswa LPDP</a></li>
+        <li>Temukan informasi lainnya di situs resmi kementerian dan penyedia beasiswa.</li>
+      </ul>
+    </div>
+
+    <div class="about-box">
+      <h3>💬 Forum Diskusi</h3>
+      <ul>
+        <li><a href="https://chat.whatsapp.com/examplegroup1" target="_blank">Gabung Grup WhatsApp EduSmart</a></li>
+        <li><a href="https://t.me/edusmartforum" target="_blank">Gabung Grup Telegram EduSmart</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 EduSmart. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleMoreInfo() {
+      const moreInfo = document.getElementById('moreInfo');
+      const btn = document.querySelector('.btn-show');
+      if (moreInfo.classList.contains('active')) {
+        moreInfo.classList.remove('active');
+        btn.textContent = 'Lihat Selengkapnya ▼';
+      } else {
+        moreInfo.classList.add('active');
+        btn.textContent = 'Sembunyikan ▲';
+      }
+    }
+  </script>
+</body>
+</html>

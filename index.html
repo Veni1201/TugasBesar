@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home - EduSmart</title>
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- FontAwesome untuk ikon -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  
+  <style>
+    /* Animasi fadeInUp sederhana */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate {
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    /* Saat halaman sudah loaded, animasi aktif */
+    .loaded .animate {
+      opacity: 1;
+    }
+
+    /* Style tombol */
+    .read-more-btn {
+      margin-top: 15px;
+      padding: 12px 28px;
+      background: #00dfd8;
+      border: none;
+      color: #121212;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #00dfd8;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      display: inline-block;
+      text-decoration: none;
+      text-align: center;
+    }
+    .read-more-btn:hover {
+      background-color: #eceef0;
+      color: white;
+      box-shadow: 0 0 25px #0e0e0e;
+      transform: scale(1.08);
+    }
+
+    /* Content box (dipakai sebelumnya) */
+    .content-box {
+      background: #e4e8e8;
+      color: #e0e0e0;
+      border-radius: 15px;
+      box-shadow: 0 0 25px #00dfd8;
+      padding: 25px;
+      margin-bottom: 40px;
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      transition: transform 0.3s ease;
+    }
+    .content-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 40px #00fff7;
+    }
+
+    /* Text styling */
+    .short-text {
+      flex: 1 1 320px;
+      font-weight: 600;
+      line-height: 1.6;
+      text-align: justify;
+      font-size: 1.1rem;
+    }
+
+    /* Detail box styling */
+    .detail-box {
+      flex: 1 1 400px;
+      display: none;
+      background: #00373a;
+      padding: 25px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 30px #00dfd8;
+      font-weight: 600;
+      line-height: 1.6;
+      user-select: text;
+      animation: fadeInUp 0.5s ease forwards;
+      max-width: 600px;
+      font-size: 1rem;
+      color: #d9f0f0;
+    }
+    .detail-box.show {
+      display: block;
+    }
+
+    h3 {
+      margin-top: 45px;
+      color: #00dfd8;
+      text-shadow: 0 0 10px #00dfd8;
+      font-size: 1.6rem;
+    }
+
+    /* List style inside detail */
+    .detail-box ul {
+      margin-top: 10px;
+      margin-left: 20px;
+    }
+    .detail-box ul li {
+      margin-bottom: 8px;
+    }
+
+    /* Navbar */
+    nav.animate {
+      margin: 20px 0;
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+    }
+    nav.animate a {
+      color: #00dfd8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+    nav.animate a:hover {
+      color: #00fff7;
+      text-shadow: 0 0 8px #00fff7;
+    }
+
+    /* Section cards (materi, tips, dll) */
+    .cards-section {
+      margin-top: 50px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .card {
+      background-color: #050505;
+      border-radius: 15px;
+      padding: 25px;
+      width: 280px;
+      color: #fbfbfb;
+      box-shadow: 0 0 20px #5cf0f0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-align: left;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px #fafafa;
+    }
+
+    .card h4 {
+      font-size: 1.3rem;
+      color: #eef0f0;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      flex-grow: 1;
+      line-height: 1.6;
+    }
+
+    .card .icon {
+      font-size: 2.4rem;
+      color: #edf0f0;
+      margin-bottom: 10px;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .cards-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .card {
+        width: 90%;
+      }
+      nav.animate {
+        flex-direction: column;
+        gap: 15px;
+      }
+    }
+
+    /* Header */
+    header.animate {
+      text-align: center;
+      margin-top: 30px;
+      color: #00dfd8;
+      text-shadow: 0 0 15px #00dfd8;
+      font-size: 2.4rem;
+      font-weight: 900;
+    }
+
+    /* Content main text */
+    .content.animate {
+      max-width: 900px;
+      margin: 40px auto 20px;
+      padding: 0 20px;
+      color: #d9f0f0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      text-align: justify;
+    }
+
+    .content.animate h2 {
+      color: #00dfd8;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      text-align: center;
+      text-shadow: 0 0 10px #00dfd8;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 80px;
+      padding: 20px 10px;
+      background: #00373a;
+      color: #00dfd8;
+      text-align: center;
+      font-weight: 600;
+      box-shadow: inset 0 1px 8px #00dfd8;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <header class="animate">
+    <h1>EDUSMART - HOME</h1>
+  </header>
+
+  <nav class="animate" style="animation-delay: 0.2s;">
+    <a href="index.html">Home</a>
+    <a href="about.html">Tentang</a>
+    <a href="materi.html">Materi</a>
+    <a href="kontak.html">Kontak</a>
+  </nav>
+
+  <main class="content animate" style="animation-delay: 0.4s;">
+    <h2>SELAMAT DATANG DI EDU SMART</h2>
+    <p>
+      EduSmart adalah platform belajar online yang dirancang untuk membantu kamu meraih kesuksesan akademik dengan mudah dan menyenangkan.  
+      Di sini, kamu bisa menemukan materi belajar lengkap, tips belajar efektif, informasi beasiswa terbaru, serta forum diskusi yang interaktif untuk berbagi pengalaman dan bertanya.  
+      Kami percaya belajar harus selalu seru dan bermanfaat, maka kami menyediakan konten yang mudah dipahami dan terus diperbarui.  
+      Selamat bergabung dan mulai jelajahi dunia pengetahuan bersama EduSmart!
+    </p>
+  </main>
+  <section class="cards-section animate" style="animation-delay: 0.6s;">
+    <h3>Jelajahi Fitur EduSmart</h3>
+    <div class="cards-container">
+      <div class="card" style="animation-delay: 0.7s;">
+        <div class="icon"><i class="fa fa-file-alt"></i></div>
+        <h4>Materi Belajar</h4>
+        <a href="matematika.html" class="read-more-btn">Lihat Materi</a>
+      </div>
+      <div class="card" style="animation-delay: 0.9s;">
+        <div class="icon"><i class="fa fa-lightbulb"></i></div>
+        <h4>Tips Belajar</h4>
+        <a href="materi.html" class="read-more-btn">Baca Tips</a>
+      </div>
+      <div class="card" style="animation-delay: 1.1s;">
+        <div class="icon"><i class="fa fa-graduation-cap"></i></div>
+        <h4>Info Beasiswa</h4>
+        <a href="materi.html" class="read-more-btn">Lihat Info</a>
+      </div>
+      <div class="card" style="animation-delay: 1.3s;">
+        <div class="icon"><i class="fa fa-comments"></i></div>
+        <h4>Forum Diskusi</h4>
+        <a href="materi.html" class="read-more-btn">Gabung Forum</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 EduSmart. All rights reserved.
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+  <script>
+    AOS.init({once:true});
+
+    // Ketik otomatis tapi halus, lalu hilangkan kursor
+    document.addEventListener("DOMContentLoaded", () => {
+      const typingElement = document.getElementById("typed-text");
+      if (!typingElement) return; // kalau elemen ada
+      const text = typingElement.textContent;
+      typingElement.textContent = "";
+      typingElement.classList.remove("done");
+
+      let i = 0;
+      const speed = 70; // kecepatan ketik (ms)
+
+      function typeWriter() {
+        if (i < text.length) {
+          typingElement.textContent += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        } else {
+          // animasi selesai, hilangkan kursor
+          typingElement.classList.add("done");
+        }
+      }
+
+      typeWriter();
+    });
+
+    // Partikel halus di background (pastikan ada <canvas id="particles"></canvas> kalau mau dipakai)
+    const canvas = document.getElementById('particles');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let particlesArray;
+
+      function initParticles() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        particlesArray = [];
+        const numberOfParticles = Math.floor(canvas.width / 10);
+        for (let i = 0; i < numberOfParticles; i++) {
+          particlesArray.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 1,
+            speedX: (Math.random() - 0.5) * 0.3,
+            speedY: (Math.random() - 0.5) * 0.3,
+          });
+        }
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(255,255,255,0.3)";
+        particlesArray.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fill();
+          p.x += p.speedX;
+          p.y += p.speedY;
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+        });
+        requestAnimationFrame(animateParticles);
+      }
+
+      window.addEventListener('resize', () => {
+        initParticles();
+      });
+
+      initParticles();
+      animateParticles();
+    }
+  </script>
+</body>
+</html>
